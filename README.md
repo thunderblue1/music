@@ -1,5 +1,5 @@
 
-#React Music App
+# React Music App
 
 ### Getting Started with Create React App
 
