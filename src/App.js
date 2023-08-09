@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import SearchAlbum from './SearchAlbum';
 import NavBar from './NavBar';
-import NewAlbum from './NewAlbum';
+import EditAlbum from './EditAlbum';
 import OneAlbum from './OneAlbum';
 import './App.css';
 import dataSource from './dataSource';
@@ -29,7 +29,7 @@ const App = (props) => {
     setSearchPhrase(phrase);
   };
 
-  const updateSingleAlbum = (id, navigate) => {
+  const updateSingleAlbum = (id, navigate,uri) => {
     console.log('Update Single Album = ',id);
     console.log('Update Single Album = ',navigate);
     var indexNumber = 0;
@@ -37,7 +37,8 @@ const App = (props) => {
       if (albumList[i].albumId === id) indexNumber = i;
     }
     setCurrentlySelectedAlbumId(indexNumber);
-    console.log('update path', '/show/'+indexNumber);
+    let path = uri+indexNumber;
+    console.log('path', path);
     navigate('/show/'+indexNumber);
   };
 
@@ -52,6 +53,16 @@ const App = (props) => {
   });
 
   console.log('renderedList',renderedList);
+
+  const onNewAlbum = (navigate) => {
+    loadAlbums();
+    navigate("/");
+  }
+
+  const onEditAlbum = (navigate) => {
+    loadAlbums();
+    navigate("/");
+  }
 
   return (
     <BrowserRouter>
@@ -68,20 +79,17 @@ const App = (props) => {
             />
           }
         />
-        <Route exact path='/new' element={<NewAlbum />} />
+        <Route exact path='/new' element={<EditAlbum onEditAlbum={onNewAlbum}/>} />
+        <Route exact path='/edit/:albumId' element={<EditAlbum onEditAlbum={onEditAlbum} album={albumList[currentlySelectedAlbumId]} />} />
         <Route
-          exact
-          path='/show/:albumId'
+          exact path='/show/:albumId'
           element={<OneAlbum album={albumList[currentlySelectedAlbumId]} />}
         />
         <Route
-          exact
-          path='/show/:albumId/:trackId'
+          exact path='/show/:albumId/:trackId'
           element={<OneAlbum album={albumList[currentlySelectedAlbumId]} />}
         />
       </Routes>
-      
-      <Link to="/show/1">Number 1</Link>
     </BrowserRouter>
   );
 };
