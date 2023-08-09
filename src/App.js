@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import SearchAlbum from './SearchAlbum';
 import NavBar from './NavBar';
 import NewAlbum from './NewAlbum';
@@ -16,7 +15,6 @@ const App = (props) => {
 
   const loadAlbums = async () => {
     const response = await dataSource.get('/albums');
-
     setAlbumList(response.data);
   };
 
@@ -42,7 +40,7 @@ const App = (props) => {
     console.log('update path', '/show/'+indexNumber);
     navigate('/show/'+indexNumber);
   };
-  
+
   console.log('albumList',albumList);
   const renderedList = albumList.filter((album) => {
     if(
@@ -68,15 +66,22 @@ const App = (props) => {
               albumList={renderedList}
               updateSingleAlbum = {updateSingleAlbum}
             />
-          }>
-          <Route exact path='/new' element={<NewAlbum />} />
-          <Route
-            exact
-            path='/show/:albumId'
-            element={<OneAlbum album={albumList[currentlySelectedAlbumId]} />}
-          />
-        </Route>
+          }
+        />
+        <Route exact path='/new' element={<NewAlbum />} />
+        <Route
+          exact
+          path='/show/:albumId'
+          element={<OneAlbum album={albumList[currentlySelectedAlbumId]} />}
+        />
+        <Route
+          exact
+          path='/show/:albumId/:trackId'
+          element={<OneAlbum album={albumList[currentlySelectedAlbumId]} />}
+        />
       </Routes>
+      
+      <Link to="/show/1">Number 1</Link>
     </BrowserRouter>
   );
 };
