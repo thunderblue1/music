@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import dataSource from './dataSource';
 
 const EditAlbum = (props) => {
+    const [albumTitle, setAlbumTitle] = useState('');
+    const [artist, setArtist] = useState('');
+    const [description, setDescription] = useState('');
+    const [year, setYear] = useState('');
+    const [image, setImage] = useState('');
+    const [tracks, setTracks] = useState('');
+    const navigate = useNavigate();
+
     let album = {
         title: '',
         artist:'',
@@ -15,17 +23,17 @@ const EditAlbum = (props) => {
     if(props.album) {
         album = props.album;
         newAlbumCreation = false;
+        //setTracks(album.tracks);
     }
 
+    useEffect(()=>{
+        setAlbumTitle(props.album.title);
+        setArtist(props.album.artist);
+        setDescription(props.album.description);
+        setYear(props.album.year);
+        setImage(props.album.image);
+    }, [props.album])
 
-    const [albumTitle, setAlbumTitle] = useState('');
-    const [artist, setArtist] = useState('');
-    const [description, setDescription] = useState('');
-    const [year, setYear] = useState('');
-    const [image, setImage] = useState('');
-    const [tracks, setTracks] = useState('');
-    const navigate = useNavigate();
-    
     const updateTitle = (event) => {
         setAlbumTitle(event.target.value);
     };

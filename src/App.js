@@ -39,7 +39,7 @@ const App = (props) => {
     setCurrentlySelectedAlbumId(indexNumber);
     let path = uri+indexNumber;
     console.log('path', path);
-    navigate('/show/'+indexNumber);
+    navigate(path);
   };
 
   console.log('albumList',albumList);

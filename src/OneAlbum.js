@@ -43,6 +43,8 @@ const OneAlbum = (props) => {
                             <div className='card-body'>
                                 <h5 className='card-title'>{props.album.title}</h5>
                                 <p className='card-text'>{props.album.description}</p>
+                                <p className='card-text'>{props.album.artist}</p>
+                                <p className='card-text'>{props.album.year}</p>
                                 <TrackList tracks={props.album.tracks} albumId={props.album.albumId} />
                                 <a href='/#' className='btn btn-primary'>
                                     Edit
